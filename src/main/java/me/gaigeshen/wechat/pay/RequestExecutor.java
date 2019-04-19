@@ -45,6 +45,9 @@ public class RequestExecutor {
 
     HttpPost post = new HttpPost(request.requestUri());
     post.setEntity(new StringEntity(requestBodyHelper.parseToBody(), "utf-8"));
+
+    // 响应里面并未明确指出具体的字符编码
+    // 但是文档已强调为此编码
     String result = executor.execute(post, Charset.forName("utf-8"));
 
     return ResponseBodyHelper.create(result)

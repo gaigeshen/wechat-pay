@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
+ * 配置
+ *
  * @author gaigeshen
  */
 @Getter

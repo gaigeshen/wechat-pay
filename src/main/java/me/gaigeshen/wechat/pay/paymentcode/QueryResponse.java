@@ -4,6 +4,8 @@ import lombok.Getter;
 import me.gaigeshen.wechat.pay.AbstractResponse;
 
 /**
+ * 查询订单结果
+ *
  * @author gaigeshen
  */
 @Getter
