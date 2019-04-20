@@ -18,10 +18,6 @@ import java.lang.reflect.Field;
  */
 final class ResponseBodyHelper {
   /**
-   * 响应体内容，是字符串
-   */
-  private final String coontent;
-  /**
    * 由响应体转换后的文档
    */
   private final Document document;
@@ -33,8 +29,7 @@ final class ResponseBodyHelper {
    * @throws DocumentException 转换响应体为文档的时候失败
    */
   private ResponseBodyHelper(String coontent) throws DocumentException {
-    this.coontent = coontent;
-    this.document = new SAXReader().read(new StringReader(this.coontent));
+    this.document = new SAXReader().read(new StringReader(coontent));
   }
 
   /**
