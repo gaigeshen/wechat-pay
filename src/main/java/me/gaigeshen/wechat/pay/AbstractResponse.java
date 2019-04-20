@@ -3,7 +3,7 @@ package me.gaigeshen.wechat.pay;
 import lombok.Getter;
 
 /**
- * 抽象请求结果，在此处的字段不需要再子类再次申明，子类尽量关注具体的业务字段
+ * 抽象请求结果，在此处的字段不需要在子类再次申明，子类尽量关注具体的业务字段
  *
  * @author gaigeshen
  */

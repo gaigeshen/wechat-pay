@@ -6,7 +6,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.*;
 import java.security.KeyStore;
 import java.util.Properties;
 
@@ -94,5 +94,35 @@ public class PaymentCodeTest {
             .build();
     RefundQueryResponse resp = executor.execute(req);
     System.out.println(resp);
+  }
+
+  @Test
+  public void testDownloadBill() {
+    DownloadBillRequest req = DownloadBillRequest.builder()
+            // 下载对账单的日期
+            .billDate("20190419")
+            // ALL（默认值），返回当日所有订单信息（不含充值退款订单）
+            // SUCCESS，返回当日成功支付的订单（不含充值退款订单）
+            // REFUND，返回当日退款订单（不含充值退款订单）
+            // RECHARGE_REFUND，返回当日充值退款订单
+            .billType("ALL")
+            // 非必传参数，固定值：GZIP
+            .tarType("GZIP")
+            .build();
+    executor.execute(req, (contentType, content) -> {
+      if (contentType.startsWith("/text")) { // 出错了，响应内容为简单文本
+        DownloadBillResponse resp = ResponseBodyHelper.create(new String(content)).parseToObject(DownloadBillResponse.class);
+        System.out.println("======================Download bill failed =====================");
+        System.out.println("Return code: " + resp.getReturnCode());
+        System.out.println("Return msg: " + resp.getReturnMsg());
+        System.out.println("Error code: " + resp.getErrorCode());
+      } else { // 下载成功
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream("c:/tmp/order.gzip"))) {
+          out.write(content);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    });
   }
 }
