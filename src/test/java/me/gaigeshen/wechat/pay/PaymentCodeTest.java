@@ -97,7 +97,7 @@ public class PaymentCodeTest {
   }
 
   @Test
-  public void testDownloadBill() {
+  public void testDownloadBill() throws IOException {
     DownloadBillRequest req = DownloadBillRequest.builder()
             // 下载对账单的日期
             .billDate("20190419")
@@ -109,20 +109,18 @@ public class PaymentCodeTest {
             // 非必传参数，固定值：GZIP
             .tarType("GZIP")
             .build();
-    executor.execute(req, (contentType, content) -> {
-      if (contentType.startsWith("/text")) { // 出错了，响应内容为简单文本
-        DownloadBillResponse resp = ResponseBodyHelper.create(new String(content)).parseToObject(DownloadBillResponse.class);
+    try (OutputStream out = new FileOutputStream(new File("c:/tmp/order.gzip"))) {
+      DownloadResponseBodyOutputStreamHandler<DownloadBillResponse> handler = new DownloadResponseBodyOutputStreamHandler<>(
+              DownloadBillResponse.class, out);
+      executor.execute(req, handler);
+
+      if (handler.isFailed()) {
+        DownloadBillResponse resp = handler.getFailedResult();
         System.out.println("======================Download bill failed =====================");
         System.out.println("Return code: " + resp.getReturnCode());
         System.out.println("Return msg: " + resp.getReturnMsg());
         System.out.println("Error code: " + resp.getErrorCode());
-      } else { // 下载成功
-        try (OutputStream out = new BufferedOutputStream(new FileOutputStream("c:/tmp/order.gzip"))) {
-          out.write(content);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
       }
-    });
+    }
   }
 }
