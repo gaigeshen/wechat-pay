@@ -97,7 +97,7 @@ public class PaymentCodeTest {
   }
 
   @Test
-  public void testDownloadBill() throws IOException {
+  public void testDownloadBill() throws IOException { // 下载对账单
     DownloadBillRequest req = DownloadBillRequest.builder()
             // 下载对账单的日期
             .billDate("20190419")
@@ -122,5 +122,14 @@ public class PaymentCodeTest {
         System.out.println("Error code: " + resp.getErrorCode());
       }
     }
+  }
+
+  @Test
+  public void testQueryOpenidRequest() {
+    QueryOpenidRequest req = QueryOpenidRequest.builder()
+            .authCode("134770449745943242")
+            .build();
+    QueryOpenidResponse resp = executor.execute(req);
+    System.out.println(resp.getOpenid());
   }
 }
