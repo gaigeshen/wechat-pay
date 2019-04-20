@@ -125,11 +125,34 @@ public class PaymentCodeTest {
   }
 
   @Test
-  public void testQueryOpenidRequest() {
+  public void testQueryOpenidRequest() { // 查询用户标识
     QueryOpenidRequest req = QueryOpenidRequest.builder()
             .authCode("134770449745943242")
             .build();
     QueryOpenidResponse resp = executor.execute(req);
     System.out.println(resp.getOpenid());
+  }
+
+  @Test
+  public void testDownloadComment() { // 下载订单评论，only HMAC-SHA256
+    DownloadCommentRequest req = DownloadCommentRequest.builder()
+            .offset(0)
+            .limit(100)
+            .beginTime("20190419000000")
+            .endTime("20190419235959")
+            .build();
+    DownloadResponseBodyFileHandler<DownloadCommentResponse> handler = new DownloadResponseBodyFileHandler<>(
+            DownloadCommentResponse.class, new File("c:/tmp/order.gzip"));
+    executor.execute(req, handler);
+
+    if (handler.isFailed()) {
+      DownloadCommentResponse resp = handler.getFailedResult();
+      System.out.println("======================Download comment failed =====================");
+      System.out.println("Return code: " + resp.getReturnCode());
+      System.out.println("Return msg: " + resp.getReturnMsg());
+      System.out.println("Result code: " + resp.getResultCode());
+      System.out.println("Error code: " + resp.getErrCode());
+      System.out.println("Error code description: " + resp.getErrCodeDes());
+    }
   }
 }
