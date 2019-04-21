@@ -97,6 +97,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -111,6 +112,7 @@
                 <artifactId>jgitflow-maven-plugin</artifactId>
                 <version>1.0-m5.1</version>
                 <configuration>
+                    <arguments>-DskipTests</arguments>
                     <noReleaseBuild>true</noReleaseBuild>
                     <noHotfixBuild>true</noHotfixBuild>
                     <noDeploy>true</noDeploy>
