@@ -6,7 +6,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.*;
 import java.security.KeyStore;
 import java.util.Properties;
 
@@ -94,5 +94,65 @@ public class PaymentCodeTest {
             .build();
     RefundQueryResponse resp = executor.execute(req);
     System.out.println(resp);
+  }
+
+  @Test
+  public void testDownloadBill() throws IOException { // 下载对账单
+    DownloadBillRequest req = DownloadBillRequest.builder()
+            // 下载对账单的日期
+            .billDate("20190419")
+            // ALL（默认值），返回当日所有订单信息（不含充值退款订单）
+            // SUCCESS，返回当日成功支付的订单（不含充值退款订单）
+            // REFUND，返回当日退款订单（不含充值退款订单）
+            // RECHARGE_REFUND，返回当日充值退款订单
+            .billType("ALL")
+            // 非必传参数，固定值：GZIP
+            .tarType("GZIP")
+            .build();
+    try (OutputStream out = new FileOutputStream(new File("c:/tmp/order.gzip"))) {
+      DownloadResponseBodyOutputStreamHandler<DownloadBillResponse> handler = new DownloadResponseBodyOutputStreamHandler<>(
+              DownloadBillResponse.class, out);
+      executor.execute(req, handler);
+
+      if (handler.isFailed()) {
+        DownloadBillResponse resp = handler.getFailedResult();
+        System.out.println("======================Download bill failed =====================");
+        System.out.println("Return code: " + resp.getReturnCode());
+        System.out.println("Return msg: " + resp.getReturnMsg());
+        System.out.println("Error code: " + resp.getErrorCode());
+      }
+    }
+  }
+
+  @Test
+  public void testQueryOpenidRequest() { // 查询用户标识
+    QueryOpenidRequest req = QueryOpenidRequest.builder()
+            .authCode("134770449745943242")
+            .build();
+    QueryOpenidResponse resp = executor.execute(req);
+    System.out.println(resp.getOpenid());
+  }
+
+  @Test
+  public void testDownloadComment() { // 下载订单评论，only HMAC-SHA256
+    DownloadCommentRequest req = DownloadCommentRequest.builder()
+            .offset(0)
+            .limit(100)
+            .beginTime("20190419000000")
+            .endTime("20190419235959")
+            .build();
+    DownloadResponseBodyFileHandler<DownloadCommentResponse> handler = new DownloadResponseBodyFileHandler<>(
+            DownloadCommentResponse.class, new File("c:/tmp/order.gzip"));
+    executor.execute(req, handler);
+
+    if (handler.isFailed()) {
+      DownloadCommentResponse resp = handler.getFailedResult();
+      System.out.println("======================Download comment failed =====================");
+      System.out.println("Return code: " + resp.getReturnCode());
+      System.out.println("Return msg: " + resp.getReturnMsg());
+      System.out.println("Result code: " + resp.getResultCode());
+      System.out.println("Error code: " + resp.getErrCode());
+      System.out.println("Error code description: " + resp.getErrCodeDes());
+    }
   }
 }

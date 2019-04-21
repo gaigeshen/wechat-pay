@@ -1,8 +1,7 @@
-package me.gaigeshen.wechat.pay.paymentcode;
+package me.gaigeshen.wechat.pay;
 
 import lombok.Builder;
 import lombok.Getter;
-import me.gaigeshen.wechat.pay.Request;
 
 /**
  * 查询退款请求，提交退款申请后，通过调用该接口查询退款状态。退款有一定延时。
