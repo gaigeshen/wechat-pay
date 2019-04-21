@@ -1,7 +1,6 @@
-package me.gaigeshen.wechat.pay.paymentcode;
+package me.gaigeshen.wechat.pay;
 
 import lombok.Getter;
-import me.gaigeshen.wechat.pay.Response;
 
 /**
  * 下载历史交易清单请求结果，只在失败的时候才返回这些字段。正常时返回文件。

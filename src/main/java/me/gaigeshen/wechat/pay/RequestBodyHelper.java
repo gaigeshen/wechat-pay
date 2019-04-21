@@ -2,6 +2,7 @@ package me.gaigeshen.wechat.pay;
 
 import me.gaigeshen.wechat.pay.commons.NameUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
@@ -26,6 +27,19 @@ final class RequestBodyHelper {
    */
   private RequestBodyHelper(Map<String, Object> parameters) {
     this.parameters = new HashMap<>(parameters);
+  }
+
+  /**
+   * 创建请求体帮助类
+   *
+   * @param parameters 请求参数集合
+   * @return 请求体帮助类
+   */
+  static RequestBodyHelper create(Map<String, Object> parameters) {
+    Validate.notNull(parameters, "parameters is required");
+    Map<String, Object> underlineParameters = new HashMap<>(parameters.size());
+    parameters.forEach((k, v) -> underlineParameters.put(NameUtils.camelToUnderline(k), v));
+    return new RequestBodyHelper(underlineParameters);
   }
 
   /**

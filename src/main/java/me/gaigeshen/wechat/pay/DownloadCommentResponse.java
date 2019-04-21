@@ -1,4 +1,4 @@
-package me.gaigeshen.wechat.pay.paymentcode;
+package me.gaigeshen.wechat.pay;
 
 import lombok.Getter;
 import me.gaigeshen.wechat.pay.Response;

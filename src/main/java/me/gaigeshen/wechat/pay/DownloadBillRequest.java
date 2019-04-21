@@ -1,8 +1,7 @@
-package me.gaigeshen.wechat.pay.paymentcode;
+package me.gaigeshen.wechat.pay;
 
 import lombok.Builder;
 import lombok.Getter;
-import me.gaigeshen.wechat.pay.Request;
 
 /**
  * 下载历史交易清单

@@ -1,6 +1,5 @@
 package me.gaigeshen.wechat.pay;
 
-import me.gaigeshen.wechat.pay.paymentcode.RefundNotify;
 import org.junit.Test;
 
 /**

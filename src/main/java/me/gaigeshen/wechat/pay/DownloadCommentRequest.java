@@ -1,8 +1,7 @@
-package me.gaigeshen.wechat.pay.paymentcode;
+package me.gaigeshen.wechat.pay;
 
 import lombok.Builder;
 import lombok.Getter;
-import me.gaigeshen.wechat.pay.Request;
 
 /**
  * 下载订单评价，每次最多两百条，只能最近三个月以内的数据
