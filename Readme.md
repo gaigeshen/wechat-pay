@@ -1,6 +1,15 @@
 ## 微信支付开发手册
 > 使用之前建议先阅读微信官方文档
 
+- 添加依赖，替换具体的版本号
+```
+<dependency>
+  <groupId>me.gaigeshen.wechat</groupId>
+  <artifactId>wechat-pay</artifactId>
+  <version>${VERSION}</version>
+</dependency>
+```
+
 - 构造`Config`实例
 ```
 Config config = Config.builder()
