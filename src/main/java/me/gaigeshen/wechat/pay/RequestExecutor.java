@@ -52,9 +52,6 @@ public class RequestExecutor {
    * @return 响应
    */
   public <R extends Response> R execute(Request<R> request) {
-    HttpPost post = new HttpPost(request.requestUri());
-    post.setEntity(new StringEntity(parseToBody(request), "utf-8"));
-
     // 响应里面并未明确指出具体的字符编码
     // 但是文档已强调为此编码
     String result = doExecuteInternal(request, new ContentResponseHandler()).asString(Charset.forName("utf-8"));
