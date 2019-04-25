@@ -28,15 +28,18 @@ SSLContext sslContext = SSLContextBuilder.create().loadKeyMaterial(keyStore, "yo
 
 HttpClientExecutor httpClient = new HttpClientExecutor(2000, 2000, 3000, sslContext);
 RequestExecutor executor = new RequestExecutor(httpClient, config);
+
+// 在必要的时候关闭
+executor.close();
 ```
 - 使用方式样例参见：```me.gaigeshen.wechat.pay.PaymentCodeTest```
 ```
 // 普通请求
 Request req = ...;
-Reaponse resp = executor.execute(req);
+Response resp = executor.execute(req);
 
 // 涉及下载文件的请求
 Request req = ...;
 ResponseBodyHandler handler = ...;
-Reaponse resp = executor.execute(req, handler);
+Response resp = executor.execute(req, handler);
 ```
