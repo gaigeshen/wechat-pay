@@ -8,6 +8,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.AbstractResponseHandler;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.nio.charset.Charset;
 
 /**
@@ -15,7 +17,7 @@ import java.nio.charset.Charset;
  *
  * @author gaigeshen
  */
-public class RequestExecutor {
+public class RequestExecutor implements Closeable {
 
   private final HttpClientExecutor executor;
   private final Config config;
@@ -26,6 +28,11 @@ public class RequestExecutor {
   public RequestExecutor(HttpClientExecutor executor, Config config) {
     this.executor = executor;
     this.config = config;
+  }
+
+  @Override
+  public void close() throws IOException {
+    executor.close();
   }
 
   private String parseToBody(Request<?> request) {

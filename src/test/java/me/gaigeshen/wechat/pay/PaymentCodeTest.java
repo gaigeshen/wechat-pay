@@ -3,6 +3,7 @@ package me.gaigeshen.wechat.pay;
 import me.gaigeshen.wechat.pay.commons.HttpClientExecutor;
 import me.gaigeshen.wechat.pay.paymentcode.*;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,6 +40,10 @@ public class PaymentCodeTest {
             new HttpClientExecutor(2000, 2000, 3000,
                     SSLContextBuilder.create().loadKeyMaterial(keyStore, props.getProperty("mchId").toCharArray()).build()),
             config);
+  }
+  @After
+  public void clean() throws IOException {
+    executor.close();
   }
 
   @Test
