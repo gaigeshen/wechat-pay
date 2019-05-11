@@ -38,6 +38,7 @@ public class RequestExecutor implements Closeable {
   private String parseToBody(Request<?> request) {
     RequestBodyHelper requestBodyHelper = RequestBodyHelper.create(request)
             .put("appid", config.getAppid())
+            .put("wxappid", config.getAppid()) // 某些情况下，公众帐号是这个名称
             .put("mchId", config.getMchId())
             .put("nonceStr", RandomStringUtils.randomNumeric(10))
             .put("signType", "MD5");
