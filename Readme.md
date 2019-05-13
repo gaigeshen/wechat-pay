@@ -1,4 +1,5 @@
 ## 微信支付开发手册
+[![Build Status](https://travis-ci.org/gaigeshen/wechat-pay.svg?branch=develop)](https://travis-ci.org/gaigeshen/wechat-pay)
 [![Maven Central](https://img.shields.io/maven-central/v/me.gaigeshen.wechat/wechat-pay.svg)](http://mvnrepository.com/artifact/me.gaigeshen.wechat/wechat-pay)
 > 使用之前建议先阅读微信官方文档
 
