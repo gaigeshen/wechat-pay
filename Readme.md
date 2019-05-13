@@ -1,6 +1,9 @@
 ## 微信支付开发手册
+[![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/gaigeshen/wechat-pay.svg?branch=develop)](https://travis-ci.org/gaigeshen/wechat-pay)
 [![Maven Central](https://img.shields.io/maven-central/v/me.gaigeshen.wechat/wechat-pay.svg)](http://mvnrepository.com/artifact/me.gaigeshen.wechat/wechat-pay)
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/me.gaigeshen.wechat/wechat-pay.svg)](https://oss.sonatype.org/content/repositories/snapshots/me/gaigeshen/wechat/wechat-pay)
+[![GitHub last commit](https://img.shields.io/github/last-commit/gaigeshen/wechat-pay.svg)](https://github.com/gaigeshen/wechat-pay/commits)
 > 使用之前建议先阅读微信官方文档
 
 - 添加依赖，替换具体的版本号
