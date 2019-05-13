@@ -1,4 +1,5 @@
 ## 微信支付开发手册
+[![Maven Central](https://img.shields.io/maven-central/v/me.gaigeshen.wechat/wechat-pay.svg)](http://mvnrepository.com/artifact/me.gaigeshen.wechat/wechat-pay)
 > 使用之前建议先阅读微信官方文档
 
 - 添加依赖，替换具体的版本号
